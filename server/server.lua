@@ -56,8 +56,7 @@ RegisterNetEvent('newspaper:buy', function(type)
             TriggerClientEvent('inventory:client:ItemBox', source, QBCore.Shared.Items['newspaper'], "add")
             Player.Functions.AddItem(type, 1)
         else
-            TriggerClientEvent('QBCore:Notify', source, '$' .. Config.Price .. ' required for buying a newspaper',
-                'error')
+            TriggerClientEvent('QBCore:Notify', source, 'Du trenger ' .. Config.Price .. ' kr for å kjøpe papiravis', 'error')
         end
     end
 end)
@@ -80,10 +79,10 @@ RegisterNetEvent('newspaper:server:updateStory', function(data)
             exports.oxmysql:insert('UPDATE newspaper SET title = ?, body = ?, image = ? WHERE id = ?',
                 {data.title, data.body, data.image, data.id})
 
-            TriggerClientEvent('QBCore:Notify', src, 'Story has been updated!', 'success')
+            TriggerClientEvent('QBCore:Notify', src, 'Artikkel har blitt oppdatert!', 'success')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'You need to be a reporter to update a story', 'success')
+        TriggerClientEvent('QBCore:Notify', src, 'Du må være reporter for å oppdatere en artikkel', 'success')
     end
 
     knownPlayers[source] = nil;
