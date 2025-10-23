@@ -102,7 +102,7 @@ RegisterNetEvent('newspaper:server:publishStory', function(data)
         if not knownPlayers[source] then
 
             knownPlayers[source] = nil;
-            DropPlayer(src, "Exploid detected") -- Update this to ban if you feel like it
+            DropPlayer(src, "Explot oppdaget") -- Update this to ban if you feel like it
 
             return
         else
@@ -110,10 +110,10 @@ RegisterNetEvent('newspaper:server:publishStory', function(data)
                 'INSERT INTO newspaper (story_type, title, body, date, image, publisher) VALUES (?, ?, ?, ?, ?, ?)',
                 {'news', data.title, data.body, data.date, data.image, playerName})
 
-            TriggerClientEvent('QBCore:Notify', src, 'Story has been published!', 'success')
+            TriggerClientEvent('QBCore:Notify', src, 'Artikkel har blitt publisert!', 'success')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'You need to be a reporter to publish a story', 'success')
+        TriggerClientEvent('QBCore:Notify', src, 'Du må være reporter for å publisere en artikkel', 'success')
     end
 
     knownPlayers[source] = nil;
@@ -136,10 +136,10 @@ RegisterNetEvent('newspaper:server:deleteStory', function(data)
         else
             exports.oxmysql:execute('DELETE FROM newspaper WHERE id = ?', {data.id})
 
-            TriggerClientEvent('QBCore:Notify', src, 'Story have been deleted', 'success')
+            TriggerClientEvent('QBCore:Notify', src, 'Artikkel har blitt slettet', 'success')
         end
     else
-        TriggerClientEvent('QBCore:Notify', src, 'Not possible to delete story', 'success')
+        TriggerClientEvent('QBCore:Notify', src, 'Ikke mulig å slette artikkel', 'success')
     end
 
     knownPlayers[source] = nil;
