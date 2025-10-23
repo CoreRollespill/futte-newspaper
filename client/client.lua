@@ -1,28 +1,39 @@
 -- CUSTOM CODE
 local QBCore = exports['qb-core']:GetCoreObject()
 
-local newsstands = {"prop_news_disp_02a_s", "prop_news_disp_02c", "prop_news_disp_05a", "prop_news_disp_02e",
-                   "prop_news_disp_03c", "prop_news_disp_06a", "prop_news_disp_02a", "prop_news_disp_02d",
-                   "prop_news_disp_02b", "prop_news_disp_01a", "prop_news_disp_03a"}
+local newsstands = {
+    "prop_news_disp_02a_s",
+    "prop_news_disp_02c",
+    "prop_news_disp_05a",
+    "prop_news_disp_02e",
+    "prop_news_disp_03c",
+    "prop_news_disp_06a",
+    "prop_news_disp_02a",
+    "prop_news_disp_02d",
+    "prop_news_disp_02b",
+    "prop_news_disp_01a",
+    "prop_news_disp_03a"
+}
+
 
 local newspaper = CreateObject(GetHashKey("prop_cliff_paper"), 0, 0, 0, true, true, true)
 
 local function AddItemToNewsStand(storyType, paper, paperIcon, stands)
-    exports['qb-target']:AddTargetModel(stands, {
-        options = {{
+    if type(stands) ~= "table" then
+        stands = {stands}
+    end
+
+    exports.ox_target:addModel(stands, {
+        {
+            name = paper,
             label = paper,
             icon = paperIcon,
-            action = function(entity)
-
-                if IsPedAPlayer(entity) then
-                    return false
-                end
-
+            onSelect = function(entity)
                 TriggerServerEvent('newspaper:buy', storyType)
                 TriggerEvent('animations:client:EmoteCommandStart', {"pickup"})
-            end
-        }},
-        distance = 1.5
+            end,
+            distance = 1.5
+        }
     })
 end
 
